@@ -2,72 +2,10 @@
 2022.03.06
 Hosung.Kim
 ----------
-숫자 아트 테스트 버전
+TextArt Test Version
 '''
 
 import cv2
-
-'''
-0
-10676
-2958
-7718
-0.2770700636942675
-=======
-1
-10676
-1807
-8869
-0.16925814911952042
-=======
-2
-10676
-1987
-8689
-0.18611839640314726
-=======
-3
-10676
-2118
-8558
-0.198388909704009
-=======
-4
-10676
-2268
-8408
-0.212439115773698
-=======
-5
-10676
-2098
-8578
-0.19651554889471712
-=======
-6
-10676
-2559
-8117
-0.2396965155488947
-=======
-7
-10676
-1574
-9102
-0.14743349569127015
-=======
-8
-10676
-2836
-7840
-0.26564256275758713
-=======
-9
-10676
-2543
-8133
-0.2381978269014612
-'''
 
 '''
 space : 0
@@ -166,19 +104,44 @@ z
 }
 ~
 '''
-FILE_PATH = "D:\Project\_Python\\"
-img = cv2.imread(FILE_PATH + 'emilico.jpg', cv2.IMREAD_GRAYSCALE)
 
-imageWidth, imageHeight = img.shape
+FILE_PATH = ""
+img = cv2.imread(FILE_PATH + 'vincent.jpg', cv2.IMREAD_GRAYSCALE)
+
+imageHeight, imageWidth = img.shape
 product = ""
 
-for w in range(imageWidth) :
-    for h in range(imageHeight) :
-        product += f"{img[w, h]}, "
-    product = product[:-2]
-    product += "\n"
+# for w in range(imageWidth) :
+#     for h in range(imageHeight) :
+#         product += f"{img[h, w]}, "
+#     product = product[:-2]
+#     product += "\n"
 
 print(imageWidth, imageHeight)
+
+size = 2
+textPixelX = 68 // size
+textPixelY = 157 // size
+
+textCountX = [textPixelX] * (imageWidth // textPixelX)
+textCountY = [textPixelY] * (imageHeight // textPixelY)
+
+imageWidth % textPixelX % len(textCountX)
+
+for i in range(len(textCountX)) :
+    textCountX[i] += imageWidth % textPixelX // len(textCountX)
+for i in range(len(textCountY)) :
+    textCountY[i] += imageHeight % textPixelY // len(textCountY)
+
+for i in range(imageWidth % textPixelX % len(textCountX)) :
+    textCountX[i] += 1
+for i in range(imageHeight % textPixelY % len(textCountY)) :
+    textCountY[i] += 1
+# print(textCountX, textCountY)
+product += str(textCountX)
+product += "\n"
+product += str(textCountY)
+print(sum(textCountX), sum(textCountY))
 
 f = open(FILE_PATH + "emp.txt", 'w', encoding='utf-8')
 f.write(product)
