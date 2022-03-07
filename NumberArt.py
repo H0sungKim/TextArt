@@ -106,9 +106,9 @@ z
 '''
 
 FILE_PATH = ""
-img = cv2.imread(FILE_PATH + 'vincent.jpg', cv2.IMREAD_GRAYSCALE)
+image = cv2.imread(FILE_PATH + 'vincent.jpg', cv2.IMREAD_GRAYSCALE)
 
-imageHeight, imageWidth = img.shape
+imageHeight, imageWidth = image.shape
 product = ""
 
 # for w in range(imageWidth) :
@@ -123,29 +123,38 @@ size = 2
 textPixelX = 68 // size
 textPixelY = 157 // size
 
-textCountX = [textPixelX] * (imageWidth // textPixelX)
-textCountY = [textPixelY] * (imageHeight // textPixelY)
+textCountX = imageWidth // textPixelX
+textCountY = imageHeight // textPixelY
 
-imageWidth % textPixelX % len(textCountX)
+# textCountX = [textPixelX] * (imageWidth // textPixelX)
+# textCountY = [textPixelY] * (imageHeight // textPixelY)
+#
+# imageWidth % textPixelX % len(textCountX)
+#
+# for i in range(len(textCountX)) :
+#     textCountX[i] += imageWidth % textPixelX // len(textCountX)
+# for i in range(len(textCountY)) :
+#     textCountY[i] += imageHeight % textPixelY // len(textCountY)
+#
+# for i in range(imageWidth % textPixelX % len(textCountX)) :
+#     textCountX[i] += 1
+# for i in range(imageHeight % textPixelY % len(textCountY)) :
+#     textCountY[i] += 1
+# product += str(textCountX)
+# product += "\n"
+# product += str(textCountY)
+# print(sum(textCountX), sum(textCountY))
 
-for i in range(len(textCountX)) :
-    textCountX[i] += imageWidth % textPixelX // len(textCountX)
-for i in range(len(textCountY)) :
-    textCountY[i] += imageHeight % textPixelY // len(textCountY)
+processedImage = cv2.resize(image, (textCountX, textCountY))
 
-for i in range(imageWidth % textPixelX % len(textCountX)) :
-    textCountX[i] += 1
-for i in range(imageHeight % textPixelY % len(textCountY)) :
-    textCountY[i] += 1
-# print(textCountX, textCountY)
-product += str(textCountX)
-product += "\n"
-product += str(textCountY)
-print(sum(textCountX), sum(textCountY))
+
+
+
 
 f = open(FILE_PATH + "emp.txt", 'w', encoding='utf-8')
 f.write(product)
 f.close()
-cv2.imshow('image', img)
+# cv2.imshow('image', image)
+cv2.imshow('image', processedImage)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
