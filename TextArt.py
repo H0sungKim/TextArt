@@ -131,7 +131,7 @@ for i in range(TEXT_COUNT_X) :
 
 image.save('test.png')
 print("finished")
-cv2.imwrite('test2.png', cv2.cvtColor(processedImage, cv2.COLOR_BGR2RGB))
+
 # cv2.imshow('image', processedImage)
 # cv2.waitKey(0)
 # cv2.destroyAllWindows()
