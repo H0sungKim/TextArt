@@ -69,11 +69,6 @@ import sys
 #    print("H")
 #    sys.exit(app.exec_())
 
-'''
-pyqt5 drag and drop
-사진 대비  https://deep-learning-study.tistory.com/121
-pdf pyfpdf
-'''
 
 def isKorean(text) :
     korCount = 0
@@ -88,23 +83,25 @@ def isKorean(text) :
         print("한글은 영어, 숫자, 특수기호와 함께 사용이 불가능합니다.")
 
 FILE_PATH = ""
-image = cv2.cvtColor(cv2.imread(FILE_PATH + 'mom.jpeg', cv2.IMREAD_COLOR), cv2.COLOR_BGR2RGB)
-# image = cv2.imread(FILE_PATH + 'vincent.jpg', cv2.IMREAD_COLOR)
+image = cv2.cvtColor(cv2.imread(FILE_PATH + 'vincent.jpg', cv2.IMREAD_COLOR), cv2.COLOR_BGR2RGB)
 
 IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_CHANNEL = image.shape
 
-text = "엄마사랑해요"
+text = "Vincent Van Gogh"
 text = text.replace(" ", "")
 lenText = len(text)
 
-font = ImageFont.truetype("D2Coding-Ver1.3.2-20180524-all.ttc", 50)
+# font = ImageFont.truetype("D2Coding-Ver1.3.2-20180524-all.ttc", 50)
+font = ImageFont.truetype("CONSOLAB.TTF", 50)
 
 STANDARD_TEXT_X, STANDARD_TEXT_Y = font.getsize(" ")
 STANDARD_TEXT_Y = STANDARD_TEXT_X * 2
 
+# 한글은 영어와 한글자당 크기가 다르므로 확인 후 계산
 if isKorean(text) :
     STANDARD_TEXT_X = STANDARD_TEXT_X * 2
 
+# 사진 리사이징
 size = 4
 TEXT_PIXEL_X = STANDARD_TEXT_X // size
 TEXT_PIXEL_Y = STANDARD_TEXT_Y // size
@@ -112,27 +109,26 @@ TEXT_PIXEL_Y = STANDARD_TEXT_Y // size
 TEXT_COUNT_X = IMAGE_WIDTH // TEXT_PIXEL_X
 TEXT_COUNT_Y = IMAGE_HEIGHT // TEXT_PIXEL_Y
 
-processedImage = cv2.resize(image, (TEXT_COUNT_X, TEXT_COUNT_Y))
+resizedImage = cv2.resize(image, (TEXT_COUNT_X, TEXT_COUNT_Y))
 
+# 명도 조절
+processedImage = cv2.subtract(resizedImage, 100)
 
 print(f"{TEXT_COUNT_X}, {TEXT_COUNT_Y}")
 print(f"{STANDARD_TEXT_X}, {STANDARD_TEXT_Y}")
 
-
+# 이미지 생성
 image = Image.new('RGB', (TEXT_COUNT_X * STANDARD_TEXT_X, TEXT_COUNT_Y * STANDARD_TEXT_Y), (255, 255, 255))
 draw = ImageDraw.Draw(image)
 
-# #글씨 하나하나씩 그리기
+#글씨 하나하나씩 그리기
 for i in range(TEXT_COUNT_X) :
     for j in range(TEXT_COUNT_Y) :
         draw.text((STANDARD_TEXT_X * i, STANDARD_TEXT_Y * j), text[(TEXT_COUNT_X * j + i) % lenText], fill=tuple(processedImage[j][i]), font=font)
 
-# draw.text((0, 0), "dd", fill=tuple(processedImage[][]), font=font)
-
-
 image.save('test.png')
 print("finished")
-#
+
 # cv2.imshow('image', processedImage)
 # cv2.waitKey(0)
 # cv2.destroyAllWindows()
