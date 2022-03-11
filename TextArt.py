@@ -1,5 +1,6 @@
 import cv2
 from PIL import Image, ImageDraw, ImageFont
+import numpy as np
 from PyQt5.QtWidgets import QGridLayout, QLabel, QPushButton, QWidget, QApplication, QMainWindow
 import sys
 
@@ -112,7 +113,9 @@ TEXT_COUNT_Y = IMAGE_HEIGHT // TEXT_PIXEL_Y
 resizedImage = cv2.resize(image, (TEXT_COUNT_X, TEXT_COUNT_Y))
 
 # 명도 조절
-processedImage = cv2.subtract(resizedImage, 100)
+brightness = 30
+brightnessAry = np.full(resizedImage.shape, (brightness, brightness, brightness), dtype=np.uint8)
+processedImage = cv2.subtract(resizedImage, brightnessAry)
 
 print(f"{TEXT_COUNT_X}, {TEXT_COUNT_Y}")
 print(f"{STANDARD_TEXT_X}, {STANDARD_TEXT_Y}")
@@ -128,7 +131,7 @@ for i in range(TEXT_COUNT_X) :
 
 image.save('test.png')
 print("finished")
-
+cv2.imwrite('test2.png', cv2.cvtColor(processedImage, cv2.COLOR_BGR2RGB))
 # cv2.imshow('image', processedImage)
 # cv2.waitKey(0)
 # cv2.destroyAllWindows()
