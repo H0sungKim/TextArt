@@ -17,7 +17,7 @@
 > ![test2](https://user-images.githubusercontent.com/78355442/157788922-11a21aa3-b1a3-47cb-af74-b0db8bfcbf26.png)
 > 
 > 
-> 최종햣
+> 최종본
 > 
 > ![스크린샷 2022-03-11 오전 11 19 48](https://user-images.githubusercontent.com/78355442/157789642-0b9c2400-13ef-4aad-b21f-f938923a1d3c.png)
 

@@ -1,3 +1,16 @@
+'''
+=====================
+2022.03.06
+Hosung.Kim
+---------------------
+TextArt Version 1.0.0
+---------------------
+Issues
+
+brightness processing
+=====================
+'''
+
 import cv2
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
