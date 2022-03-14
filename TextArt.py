@@ -1,111 +1,30 @@
 '''
+Copyright (c) 2022 by Hosung.Kim <hyongak516@mail.hongik.ac.kr>
 =====================
 2022.03.06
 Hosung.Kim
 ---------------------
-TextArt Version 1.0.0
+TextArt Version 1.0.1
 ---------------------
 Issues
 
-brightness processing
+* brightness processing
 =====================
 '''
 
 import cv2
+import Util
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
-from PyQt5.QtWidgets import QGridLayout, QLabel, QPushButton, QWidget, QApplication, QMainWindow
-import sys
-
-# ASCII_CODE = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~"
-# font = ImageFont.truetype("D2Coding-Ver1.3.2-20180524-all.ttc", 50)
-# f = open("emp.txt", 'w', encoding='utf-8')
-#
-# testString = "김 호성뷁ㅎㅗ"
-#
-# num = 0
-# product = ""
-# for i in testString :
-#
-#     image = Image.new('RGB', font.getsize(i), (255, 255, 255))
-#     draw = ImageDraw.Draw(image)
-#     product += i + " : " + str(font.getsize(i)) + "\n"
-#     draw.text((0, 0), i, fill="black", font=font)
-#     image.save(f'/Users/kihoon.kim/Hosung/data/photos/temp/test{num}.png')
-#     num += 1
-# #
-# f.write(product)
-# f.close()
 
 
-# class MainWindow(QWidget) :
-#     def __init(self) :
-#         super().__init__()
-#         self.filePath = ""
-#         self.setAcceptDrops(True)
-#         self.initUI()
-#
-#
-#     def initUI(self) :
-#         self.setWindowTitle('TextArt')
-#         gridLayout = QGridLayout()
-#         self.setLayout(gridLayout)
-#
-#         label = QLabel(self, "hi")
-#         gridLayout.addWidget(label, 0, 0)
-#
-#         button = QPushButton("Edit", self)
-#         gridLayout.addWidget(button, 1, 0)
-#         button.clicked.connect(self.buttonClicked())
-#
-#         self.show()
-#
-#     def dropEvent(self, event) :
-#         if event.mimeData().hasUrls():
-#             event.accept()
-#         else:
-#             event.ignore()
-#
-#     def dropEvent(self, event):
-#         files = [u.toLocalFile() for u in event.mimeData().urls()]
-#         for f in files:
-#             print(f)
-#             self.inputLine.setText(f)
-#             self.filePath = f
-#
-#     def buttonClicked(self) :
-#         event = 0
-
-
-# if __name__ == '__main__':
-#    app = QApplication(sys.argv)
-#    ex = MainWindow()
-#    print("H")
-#    sys.exit(app.exec_())
-
-
-def isKorean(text) :
-    korCount = 0
-    for i in text :
-        if (ord(i) >= ord("ㄱ") and ord(i) <= ord("ㅣ")) or (ord(i) >= ord("가") and ord(i) <= ord("힣")) :
-            korCount += 1
-    if korCount == 0 :
-        return False
-    elif korCount == len(text) :
-        return True
-    else :
-        print("한글은 영어, 숫자, 특수기호와 함께 사용이 불가능합니다.")
-        quit()
-
-FILE_PATH = ""
-IMAGE_NAME = input("image : ")
-# image = cv2.cvtColor(cv2.imread(FILE_PATH + 'vincent.jpg', cv2.IMREAD_COLOR), cv2.COLOR_BGR2RGB)
+FILE_PATH = input("Enter the path to the image which you want to convert to TextArt.\n=> ")
+IMAGE_NAME = input("Enter the name of the image which you want to convert to TextArt.\n=> ")
 image = cv2.cvtColor(cv2.imread(FILE_PATH + IMAGE_NAME, cv2.IMREAD_COLOR), cv2.COLOR_BGR2RGB)
 
 IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_CHANNEL = image.shape
 
-# text = "Vincent Van Gogh"
-text = input("text : ")
+text = input("Enter the text to be a base of TextArt.\n=> ")
 text = text.replace(" ", "")
 lenText = len(text)
 
@@ -116,12 +35,11 @@ STANDARD_TEXT_X, STANDARD_TEXT_Y = font.getsize(" ")
 STANDARD_TEXT_Y = STANDARD_TEXT_X * 2
 
 # 한글은 영어와 한글자당 크기가 다르므로 확인 후 계산
-if isKorean(text) :
+if Util.isKorean(text) :
     STANDARD_TEXT_X = STANDARD_TEXT_X * 2
 
 # 사진 리사이징
-size = int(input("size : "))
-# size = 4
+size = int(input("Enter the size of the TextArt you want. (1~5 will be suitable.)\n=> "))
 TEXT_PIXEL_X = STANDARD_TEXT_X // size
 TEXT_PIXEL_Y = STANDARD_TEXT_Y // size
 
@@ -139,11 +57,7 @@ processedImage = cv2.subtract(resizedImage, brightnessAry)
 image = Image.new('RGB', (TEXT_COUNT_X * STANDARD_TEXT_X, TEXT_COUNT_Y * STANDARD_TEXT_Y), (255, 255, 255))
 draw = ImageDraw.Draw(image)
 
-
-def progressBar(a, b) :
-    percentage = a / b * 100
-    bar = "#" * int(percentage // 2) + " " * int(50 - percentage // 2)
-    print(f'\033[34mLoading... {bar} | {round(percentage, 2)}%\t{str(a).zfill(len(str(b)))}/{b}', end='\r')
+IMAGE_NAME = input("Enter the name you want the TextArt to be saved under.\n=> ")
 
 # 글씨 하나하나씩 그리기
 progress = 0
@@ -151,12 +65,8 @@ for i in range(TEXT_COUNT_X) :
     for j in range(TEXT_COUNT_Y) :
         progress += 1
         draw.text((STANDARD_TEXT_X * i, STANDARD_TEXT_Y * j), text[(TEXT_COUNT_X * j + i) % lenText], fill=tuple(processedImage[j][i]), font=font)
-        progressBar(progress, TEXT_COUNT_X * TEXT_COUNT_Y)
+        Util.printProgressBar(progress, TEXT_COUNT_X * TEXT_COUNT_Y)
 
 print("\033[97m")
-image.save('test.png')
-print("\nfinished")
-
-# cv2.imshow('image', processedImage)
-# cv2.waitKey(0)
-# cv2.destroyAllWindows()
+image.save(f'{IMAGE_NAME}.png')
+print("\nText Art is created successfully.")
