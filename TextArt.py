@@ -95,13 +95,17 @@ def isKorean(text) :
         return True
     else :
         print("한글은 영어, 숫자, 특수기호와 함께 사용이 불가능합니다.")
+        quit()
 
 FILE_PATH = ""
-image = cv2.cvtColor(cv2.imread(FILE_PATH + 'vincent.jpg', cv2.IMREAD_COLOR), cv2.COLOR_BGR2RGB)
+IMAGE_NAME = input("image : ")
+# image = cv2.cvtColor(cv2.imread(FILE_PATH + 'vincent.jpg', cv2.IMREAD_COLOR), cv2.COLOR_BGR2RGB)
+image = cv2.cvtColor(cv2.imread(FILE_PATH + IMAGE_NAME, cv2.IMREAD_COLOR), cv2.COLOR_BGR2RGB)
 
 IMAGE_HEIGHT, IMAGE_WIDTH, IMAGE_CHANNEL = image.shape
 
-text = "Vincent Van Gogh"
+# text = "Vincent Van Gogh"
+text = input("text : ")
 text = text.replace(" ", "")
 lenText = len(text)
 
@@ -116,7 +120,8 @@ if isKorean(text) :
     STANDARD_TEXT_X = STANDARD_TEXT_X * 2
 
 # 사진 리사이징
-size = 4
+size = int(input("size : "))
+# size = 4
 TEXT_PIXEL_X = STANDARD_TEXT_X // size
 TEXT_PIXEL_Y = STANDARD_TEXT_Y // size
 
@@ -130,20 +135,27 @@ brightness = 30
 brightnessAry = np.full(resizedImage.shape, (brightness, brightness, brightness), dtype=np.uint8)
 processedImage = cv2.subtract(resizedImage, brightnessAry)
 
-print(f"{TEXT_COUNT_X}, {TEXT_COUNT_Y}")
-print(f"{STANDARD_TEXT_X}, {STANDARD_TEXT_Y}")
-
 # 이미지 생성
 image = Image.new('RGB', (TEXT_COUNT_X * STANDARD_TEXT_X, TEXT_COUNT_Y * STANDARD_TEXT_Y), (255, 255, 255))
 draw = ImageDraw.Draw(image)
 
-#글씨 하나하나씩 그리기
+
+def progressBar(a, b) :
+    percentage = a / b * 100
+    bar = "#" * int(percentage // 2) + " " * int(50 - percentage // 2)
+    print(f'\033[34mLoading... {bar} | {round(percentage, 2)}%\t{str(a).zfill(len(str(b)))}/{b}', end='\r')
+
+# 글씨 하나하나씩 그리기
+progress = 0
 for i in range(TEXT_COUNT_X) :
     for j in range(TEXT_COUNT_Y) :
+        progress += 1
         draw.text((STANDARD_TEXT_X * i, STANDARD_TEXT_Y * j), text[(TEXT_COUNT_X * j + i) % lenText], fill=tuple(processedImage[j][i]), font=font)
+        progressBar(progress, TEXT_COUNT_X * TEXT_COUNT_Y)
 
+print("\033[97m")
 image.save('test.png')
-print("finished")
+print("\nfinished")
 
 # cv2.imshow('image', processedImage)
 # cv2.waitKey(0)
