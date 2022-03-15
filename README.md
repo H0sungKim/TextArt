@@ -24,7 +24,6 @@
 # ASCIIArt
 ***
 * 사진을 흑백으로 가공하고 대비를 적절하게 조정한 후 각 글자마다 밀도가 다른 것을 이용하여 알맞은 글자(ASCII 32~126)를 사용하여 사진처럼 보이도록 한다
-* ASCII 32~126 : < !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~>
 
 > 원본
 > 
