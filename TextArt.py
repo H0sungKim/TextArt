@@ -39,7 +39,7 @@ if Util.isKorean(text) :
     STANDARD_TEXT_X = STANDARD_TEXT_X * 2
 
 # 사진 리사이징
-size = int(input("Enter the size of the TextArt you want. (1~5 will be suitable.)\n=> "))
+size = int(input("Enter the size of the TextArt you want. (1~10 will be suitable.)\n=> "))
 TEXT_PIXEL_X = STANDARD_TEXT_X // size
 TEXT_PIXEL_Y = STANDARD_TEXT_Y // size
 
@@ -68,4 +68,4 @@ for i in range(TEXT_COUNT_X) :
         Util.printProgressBar(progress, TEXT_COUNT_X * TEXT_COUNT_Y)
 
 image.save(f'{IMAGE_NAME}.png')
-print("\033[97m\nText Art is created successfully.")
+print("\033[97m\nTextArt is created successfully.")
