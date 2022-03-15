@@ -23,8 +23,8 @@ import numpy as np
 # 흑백픽셀 0~255 ASCII로 변환한 것
 ASCII_CODE_PAINT = "@@@@@@@@@@@@@@@@@@@@@@@@QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ&&&&&&&&&00$NNBBBBWWMMM888DDOGGR%%%HH9#d6AKmmUUXXXS4hwPVZEkky55oa32jjeeeCCnuIIIfx]1FtzlJ7iivvvTTT()cc??LL||rrrr\\\\//***+++++<<>>=!!;;;;;~~~~~~~~^^^^^\"\"\"\",,::_________---------...'''`````````````         "
 
-FILE_PATH = input("Enter the path to the image which you want to convert to TextArt.\n=> ")
-IMAGE_NAME = input("Enter the name of the image which you want to convert to TextArt.\n=> ")
+FILE_PATH = input("Enter the path to the image which you want to convert to ASCIIArt.\n=> ")
+IMAGE_NAME = input("Enter the name of the image which you want to convert to ASCIIArt.\n=> ")
 image = cv2.imread(FILE_PATH + IMAGE_NAME, cv2.IMREAD_GRAYSCALE)
 
 IMAGE_HEIGHT, IMAGE_WIDTH = image.shape
@@ -48,15 +48,21 @@ resizedImage = cv2.resize(image, (TEXT_COUNT_X, TEXT_COUNT_Y))
 image = Image.new('RGB', (TEXT_COUNT_X * STANDARD_TEXT_X, TEXT_COUNT_Y * STANDARD_TEXT_Y), (255, 255, 255))
 draw = ImageDraw.Draw(image)
 
-IMAGE_NAME = input("Enter the name you want the TextArt to be saved under.\n=> ")
+IMAGE_NAME = input("Enter the name you want the ASCIIArt to be saved under.\n=> ")
 
 # 글씨 하나하나씩 그리기
 progress = 0
-for i in range(TEXT_COUNT_X) :
-    for j in range(TEXT_COUNT_Y) :
+text = ""
+for j in range(TEXT_COUNT_Y) :
+    for i in range(TEXT_COUNT_X) :
         progress += 1
         draw.text((STANDARD_TEXT_X * i, STANDARD_TEXT_Y * j), ASCII_CODE_PAINT[resizedImage[j][i]], fill=(0, 0, 0), font=font)
+        text += ASCII_CODE_PAINT[resizedImage[j][i]]
         Util.printProgressBar(progress, TEXT_COUNT_X * TEXT_COUNT_Y)
+    text += "\n"
 
 image.save(f'{FILE_PATH}{IMAGE_NAME}.png')
-print(f"\033[97m\nASCIIArt is created successfully in the directory below.\n{FILE_PATH}{IMAGE_NAME}.png")
+f = open(f'{FILE_PATH}{IMAGE_NAME}.txt', 'w')
+f.write(text)
+f.close()
+print(f"\033[97m\nASCIIArt is created successfully in the directory below.\n{FILE_PATH}{IMAGE_NAME}.png\n{FILE_PATH}{IMAGE_NAME}.txt")
