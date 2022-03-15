@@ -12,14 +12,16 @@
 > ![test1](https://user-images.githubusercontent.com/78355442/157781870-45b71e98-a854-412b-afdc-76b458170330.png)
 > 
 > 
-> 명도 조절
+> 최종본
+> 
+> ![vincent2](https://user-images.githubusercontent.com/78355442/158309200-82dd948c-44e4-4fd9-8ddf-8ad28eb3b7a1.png)
+> 
+> 
+<!-- > 명도 조절
 > 
 > ![test2](https://user-images.githubusercontent.com/78355442/157788922-11a21aa3-b1a3-47cb-af74-b0db8bfcbf26.png)
 > 
-> 
-> 최종본
-> 
-> ![스크린샷 2022-03-11 오전 11 19 48](https://user-images.githubusercontent.com/78355442/157789642-0b9c2400-13ef-4aad-b21f-f938923a1d3c.png)
+> -->
 
 # ASCIIArt
 ***

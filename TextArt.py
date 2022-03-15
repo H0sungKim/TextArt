@@ -8,7 +8,7 @@ TextArt Version 1.0.1
 ---------------------
 Issues
 
-* 배경이 흰색이라 사진이 전체적으로 뿌옇게 나옴
+*
 =====================
 '''
 
@@ -48,13 +48,15 @@ TEXT_COUNT_Y = IMAGE_HEIGHT // TEXT_PIXEL_Y
 
 resizedImage = cv2.resize(image, (TEXT_COUNT_X, TEXT_COUNT_Y))
 
-# 명도 조절
-brightness = 30
-brightnessAry = np.full(resizedImage.shape, (brightness, brightness, brightness), dtype=np.uint8)
-processedImage = cv2.subtract(resizedImage, brightnessAry)
+# # 명도 조절
+# brightness = 0
+# brightnessAry = np.full(resizedImage.shape, (brightness, brightness, brightness), dtype=np.uint8)
+# processedImage = cv2.subtract(resizedImage, brightnessAry)
+processedImage = resizedImage
 
 # 이미지 생성
-image = Image.new('RGB', (TEXT_COUNT_X * STANDARD_TEXT_X, TEXT_COUNT_Y * STANDARD_TEXT_Y), (255, 255, 255))
+# image = Image.new('RGB', (TEXT_COUNT_X * STANDARD_TEXT_X, TEXT_COUNT_Y * STANDARD_TEXT_Y), (255, 255, 255))
+image = Image.new('RGB', (TEXT_COUNT_X * STANDARD_TEXT_X, TEXT_COUNT_Y * STANDARD_TEXT_Y), (0, 0, 0))
 draw = ImageDraw.Draw(image)
 
 IMAGE_NAME = input("Enter the name you want the TextArt to be saved under.\n=> ")
@@ -68,4 +70,5 @@ for i in range(TEXT_COUNT_X) :
         Util.printProgressBar(progress, TEXT_COUNT_X * TEXT_COUNT_Y)
 
 image.save(f'{FILE_PATH}{IMAGE_NAME}.png')
+Util.printFinishMessage("TextArt")
 print(f"\033[97m\nTextArt is created successfully in the directory below.\n{FILE_PATH}{IMAGE_NAME}.png")
