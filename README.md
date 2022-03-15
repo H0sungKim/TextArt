@@ -25,3 +25,17 @@
 ***
 * 사진을 흑백으로 가공하고 대비를 적절하게 조정한 후 각 글자마다 밀도가 다른 것을 이용하여 알맞은 글자(ASCII 32~126)를 사용하여 사진처럼 보이도록 한다
 * ASCII 32~126 : < !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~>
+
+> 원본
+> 
+> ![einstein](https://user-images.githubusercontent.com/78355442/158289399-023fb389-e9aa-4715-a1f1-2eee59bc5e0c.jpeg)
+> 
+> 
+> 리사이즈
+> 
+> ![resized](https://user-images.githubusercontent.com/78355442/158289781-2f6abb59-a269-4eee-a01a-e32d06aaaa66.png)
+> 
+> 
+> 최종본
+> 
+> ![test](https://user-images.githubusercontent.com/78355442/158289322-53fe308e-c05c-4a9d-925a-340d5026cecc.png)

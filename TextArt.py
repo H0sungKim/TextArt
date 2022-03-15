@@ -8,7 +8,7 @@ TextArt Version 1.0.1
 ---------------------
 Issues
 
-* brightness processing
+* 배경이 흰색이라 사진이 전체적으로 뿌옇게 나옴
 =====================
 '''
 
@@ -67,6 +67,5 @@ for i in range(TEXT_COUNT_X) :
         draw.text((STANDARD_TEXT_X * i, STANDARD_TEXT_Y * j), text[(TEXT_COUNT_X * j + i) % lenText], fill=tuple(processedImage[j][i]), font=font)
         Util.printProgressBar(progress, TEXT_COUNT_X * TEXT_COUNT_Y)
 
-print("\033[97m")
 image.save(f'{IMAGE_NAME}.png')
-print("\nText Art is created successfully.")
+print("\033[97m\nText Art is created successfully.")
