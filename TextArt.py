@@ -67,5 +67,5 @@ for i in range(TEXT_COUNT_X) :
         draw.text((STANDARD_TEXT_X * i, STANDARD_TEXT_Y * j), text[(TEXT_COUNT_X * j + i) % lenText], fill=tuple(processedImage[j][i]), font=font)
         Util.printProgressBar(progress, TEXT_COUNT_X * TEXT_COUNT_Y)
 
-image.save(f'{IMAGE_NAME}.png')
-print("\033[97m\nTextArt is created successfully.")
+image.save(f'{FILE_PATH}{IMAGE_NAME}.png')
+print(f"\033[97m\nTextArt is created successfully in the directory below.\n{FILE_PATH}{IMAGE_NAME}.png")
