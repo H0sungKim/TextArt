@@ -1,3 +1,7 @@
+> pip install opencv-python
+> 
+> pip install pillow
+
 # TextArt
 ***
 * 사진을 알맞게 리사이즈한 뒤 명도를 낮춘 후 각 픽셀의 색깔로 글씨를 써서 그림을 만든다.
