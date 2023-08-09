@@ -29,7 +29,7 @@ image = cv2.imread(FILE_PATH + IMAGE_NAME, cv2.IMREAD_GRAYSCALE)
 
 IMAGE_HEIGHT, IMAGE_WIDTH = image.shape
 
-font = ImageFont.truetype("CONSOLAB.TTF", 50)
+font = ImageFont.truetype("consola.ttf", 50)
 
 STANDARD_TEXT_X, STANDARD_TEXT_Y = font.getsize(" ")
 STANDARD_TEXT_Y = STANDARD_TEXT_X * 2

@@ -1,6 +1,6 @@
 > pip install opencv-python
 > 
-> pip install pillow
+> pip install Pillow==9.5.0
 
 # TextArt
 ***
