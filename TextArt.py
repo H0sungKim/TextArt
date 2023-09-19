@@ -1,16 +1,4 @@
-'''
-Copyright (c) 2022 by Hosung.Kim <hyongak516@mail.hongik.ac.kr>
-=====================
-2022.03.06
-Hosung.Kim
----------------------
-TextArt Version 1.0.1
----------------------
-Issues
-
-*
-=====================
-'''
+# Copyright (c) 2022 by Hosung.Kim <hyongak516@mail.hongik.ac.kr>
 
 import cv2
 import Util

@@ -1,16 +1,4 @@
-'''
-Copyright (c) 2022 by Hosung.Kim <hyongak516@mail.hongik.ac.kr>
-=====================
-2022.03.06
-Hosung.Kim
----------------------
-ASCIIArt Version 1.0.0
----------------------
-Issues
-
-* 명암 대비 조절 (표준편차 이용)
-=====================
-'''
+# Copyright (c) 2022 by Hosung.Kim <hyongak516@mail.hongik.ac.kr>
 
 import cv2
 import Util
